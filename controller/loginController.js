@@ -5,8 +5,11 @@ const {tokenize, verifyToken} = require("../utility/tokenizer");
 const registerUser = async (req, res) => {
     try
     {
-        const {name, email, password} = req.body;
-        const user = await UserModel.create({name, email, password});
+        const {name, email, password, preferences} = req.body;
+        if(!name || !email || !password){
+            return res.status(400).send({ message: 'Name, email and password are required' });
+        }
+        const user = await UserModel.create({name, email, password, preferences});
         res.send(user);
     }
     catch(error)

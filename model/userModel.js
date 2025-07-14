@@ -9,12 +9,13 @@ const userSchema = mongoose.Schema({
         type: String, required: true, unique: true, trim: true, lowercase: true
     },
     password: {
-        type: String, required: true, minLength: 6, match: [
-            /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/,
-            'Password must contain at least one letter and one number',
-        ]
+        type: String, required: true
     },
-
+    preferences:{
+        type: [String],
+        enum: ['movies', 'comics', 'music', 'sports', 'news', 'games' ],
+        default:[]
+    }
 });
 
 userSchema.pre('save', async function (next) {
